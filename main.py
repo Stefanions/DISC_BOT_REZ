@@ -22,7 +22,6 @@ class Main(commands.Bot):
 bot = Main(command_prefix = "Многоуважаемый дежурный по булочкам ",intents = discord.Intents.all(),help_command = None)
 #####Функция обработки исключения#####
 async def on_error(user):
-    print("HUY")
     channel = bot.get_channel(user.dm_channel.id)
     await channel.send("Произошла техническая ошибка или вы очень долго отвечали на вопрос.\n Через 10 секунд все сообщения бота тут удалятся.\nПосле того как все сообщения удаляться, зайдите обратно на сервер и снова нажмите кнопку пройти опрос")
     time.sleep(10)
