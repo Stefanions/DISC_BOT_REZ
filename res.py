@@ -7,7 +7,7 @@ from discord.ui import Button, View
 import numpy as np
 
 #Токен тестового бота
-token = "MTE2ODk1NDM0MDI3OTU5OTE4NA.GFLeyp.u6qIKhSmz0fQHM4k3DlHv2C9XbRginkbKExqEo"
+token = "MTE2ODk1NDM0MDI3OTU5OTE4NA.GuRyX0.HRRKVyhQfxfRcOxLyWGDrDbsMaNa2D0cV1UBsk"
 
 # Токен Бота v2
 # token_v2 = 'MTE2OTEwNDYzODczNDI0NTkyOQ.GrlVW0.kabDr6uL5pcvW7NC-wFYp3-42UiWRwwmn0Z0l0'
