@@ -5,7 +5,6 @@ from discord.ext import commands
 from discord.ui import Button, View, Select
 import numpy as np
 import class_novob
-
 #Эмбеды
 
 #Первый эмбед приветствия
