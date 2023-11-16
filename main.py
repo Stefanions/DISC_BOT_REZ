@@ -19,12 +19,12 @@ class Main(commands.Bot):
 bot = Main(command_prefix = "Многоуважаемый дежурный по булочкам ",intents = discord.Intents.all(),help_command = None)
 ####Функция удаления сообщений####
 #Первый аргумент из какого канала удалить сообщения. Второй аргумент говорит сколько сообщений надо удалить
-def del_bot_mes(channel, lim = None): 
+async def del_bot_mes(channel, lim = None): 
     #Удаляю сообщения
-    for message in channel.history(limit=lim):
+    async for message in channel.history(limit=lim):
         if message.author.id == bot.user.id:
             try:
-                message.delete()
+                await message.delete()
             except discord.errors.NotFound:
                 pass
 
@@ -33,15 +33,7 @@ async def on_error(user):
     channel = bot.get_channel(user.dm_channel.id)
     await channel.send("Произошла техническая ошибка или вы очень долго отвечали на вопрос.\n Через 10 секунд все сообщения бота тут удалятся.\nПосле того как все сообщения удаляться, зайдите обратно на сервер и снова нажмите кнопку пройти опрос")
     time.sleep(10)
-    
-    del_bot_mes(channel)
-    # #Удаляю сообщения
-    # async for message in channel.history(limit=None):
-    #     if message.author.id == bot.user.id:
-    #         try:
-    #             await message.delete()
-    #         except discord.errors.NotFound:
-    #             pass
+    await del_bot_mes(channel)
     #Очищаю массивы
     try:
         mem_not_end_opr.remove(user.id)
@@ -135,13 +127,7 @@ async def Clean_and_Intro_LS(user):
     #Удаление сообщений
     await user.send("Привет")
     channel = bot.get_channel(user.dm_channel.id)
-    del_bot_mes(channel)
-    # async for message in channel.history(limit=None):
-    #     if message.author.id == bot.user.id:
-    #         try:
-    #             await message.delete()
-    #         except discord.errors.NotFound:
-    #             pass
+    await del_bot_mes(channel)
 
     await Intro_LS(user)
 
@@ -159,18 +145,20 @@ async def Intro_LS(user):
         #Приветственное сообщение
         await user.send(embed=embed.emb_1)
         
-        #### 1 вопрос
-        e_1 = embed.emb_2("Напиши свой никнейм в игре.")
-        await user.send(embed=e_1.emb)
-        await question.q_1(user, bot)
+        # #### 1 вопрос
+        # e_1 = embed.emb_2("Напиши свой никнейм в игре.")
+        # await user.send(embed=e_1.emb)
+        # await question.q_1(user, bot)
+        await question.question_1(user, bot)
 
-        #### 2 вопрос rdy 
-        sel = "s_2"
-        s.clear_items()
-        e_2 = embed.emb_2("В какое время относительно МСК ты играешь в основном?")
-        s.add_item(question.q_2())
-        await user.send(embed=e_2.emb, view = s)
-        await bot.wait_for('interaction', check=check, timeout=time_wait)
+        # ### 2 вопрос rdy 
+        # sel = "s_2"
+        # s.clear_items()
+        # e_2 = embed.emb_2("В какое время относительно МСК ты играешь в основном?")
+        # s.add_item(question.q_2())
+        # await user.send(embed=e_2.emb, view = s)
+        # await bot.wait_for('interaction', check=check, timeout=time_wait)
+        await question.question_2(user, bot, s, check)
 
         #### 3 вопрос rdy
         sel = "s_3"
@@ -276,13 +264,7 @@ async def Intro_LS(user):
 
         #Удаление кнопки
         channel = bot.get_channel(user.dm_channel.id)
-        del_bot_mes(channel, 1)
-        # async for message in channel.history(limit=1):
-        #     if message.author.id == bot.user.id:
-        #         try:
-        #             await message.delete()
-        #         except discord.errors.NotFound:
-        #             pass
+        await del_bot_mes(channel, 1)
 
 
         result_emb = discord.Embed(
@@ -332,13 +314,7 @@ async def Intro_LS(user):
 
         #Удаление сообщений бота
         channel = bot.get_channel(user.dm_channel.id)
-        del_bot_mes(channel)
-        # async for message in channel.history(limit=None):
-        #     if message.author.id == bot.user.id:
-        #         try:
-        #             await message.delete()
-        #         except discord.errors.NotFound:
-        #             pass
+        await del_bot_mes(channel)
 
         #Отправляю в канал с формами
         channel = bot.get_channel(res.id_chanel_whitch_form)
@@ -361,15 +337,7 @@ async def Intro_LS(user):
 @bot.event
 async def on_ready():
     channel = bot.get_channel(res.id_hochu_v_cadetku)
-    del_bot_mes(channel)
-    # #Удаление сообщений
-    # async for message in channel.history(limit=None):
-    #     if message.author.id == bot.user.id:
-    #         try:
-    #             await message.delete()
-    #         except discord.errors.NotFound:
-    #             pass
-    #Начальная кнопка
+    await del_bot_mes(channel)
     print("I am here")
     but_main = main_but()
     await channel.send("Я начал работу", view=but_main)

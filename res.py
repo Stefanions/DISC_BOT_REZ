@@ -7,7 +7,7 @@ from discord.ui import Button, View
 import numpy as np
 
 #Токен тестового бота
-token = "MTE2ODk1NDM0MDI3OTU5OTE4NA.GuRyX0.HRRKVyhQfxfRcOxLyWGDrDbsMaNa2D0cV1UBsk"
+token = "MTE3NDYyODk2Nzg3NDAzOTgwOA.GfIqRW.bbbj4qaHDYgTZZOmk-wum4FReeA8wizQRMK0o4"
 
 ###########################################
 #Тестовый сервер
@@ -22,10 +22,6 @@ id_nach_shtab = 1168950768674541614
 
 id_server = 1168950768460640357
 id_chanel_pogovorim_tut = 1168950770574561287
-
-#Основной сервер
-id_hochu_v_cadetku = 1090007128133075027
-id_chanel_whitch_form = 1090007128133075027
 
 # id ролей на ТЕСТОВОМ СЕРВЕРЕ
 #Не выбираемые роли

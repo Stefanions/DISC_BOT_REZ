@@ -4,6 +4,7 @@ import discord
 from discord.ext import commands
 from discord.ui import Button, View, Select
 import numpy as np
+import embed
 
 #HASH_MAP для запоминания ответов людей, которые проходят тест
 mem_data = {}
@@ -17,7 +18,8 @@ async def q_1(user, bot):
     def check(message):
         return ((message.author.id == user.id) and (message.channel.id == user.dm_channel.id))
     mes = await bot.wait_for('message', check=check, timeout=time_wait)
-    mem_data[user.id].nick = mes.content  
+    mem_data[user.id].nick = mes.content
+
 
 ####### 2 вопрос #######
 class q_2(Select):
@@ -50,7 +52,6 @@ class q_2(Select):
         for i in (value):
             rez_label.append(label_value[i])
         #-----------------------------#
-
         mem_data[interaction.user.id].main_time = rez_label
 
 ####### 3 вопрос #######
@@ -103,7 +104,6 @@ class q_3(Select):
         value = interaction.data['values'][0]
         mem_data[interaction.user.id].time_zone = value
 
-
 ####### 4 вопрос #######
 class q_4(Select):
     def __init__(self): 
@@ -130,8 +130,6 @@ class q_4(Select):
             label_value[i.value] = i.label
         #-----------------------------#
         mem_data[interaction.user.id].hours = label_value[value[0]]
-
-
 
 ####### 5 вопрос #######
 class q_5(Select):
@@ -194,7 +192,6 @@ class q_6(Select):
         #-----------------------------#
         mem_data[interaction.user.id].main_game_role = label_value[value[0]]
 
-
 ####### 7 вопрос
 class q_7(Select):
     def __init__(self): 
@@ -236,7 +233,6 @@ class q_7(Select):
 
         mem_data[interaction.user.id].game_role = rez_label
 
-
 ####### 8 вопрос #######
 async def q_8(user, bot):
     def check(message):
@@ -250,9 +246,6 @@ async def q_9(user, bot):
         return ((message.author.id == user.id) and (message.channel.id == user.dm_channel.id))
     mes = await bot.wait_for('message', check=check, timeout=time_wait)
     mem_data[user.id].age = mes.content 
-
-    
-
 
 ####### 10 вопрос
 class q_10(Select):
@@ -277,7 +270,6 @@ class q_10(Select):
         await interaction.response.defer()
         value = interaction.data['values']
         mem_data[interaction.user.id].shooting_skill = value[0]
-
 
 ####### 11 вопрос
 class q_11(Select):
@@ -349,3 +341,19 @@ async def q_14(user, bot):
         return ((message.author.id == user.id) and (message.channel.id == user.dm_channel.id))
     mes = await bot.wait_for('message', check=check, timeout=time_wait)
     mem_data[user.id].answer_q14 = mes.content 
+
+### Функция вопросов ###
+async def question_1(user, bot):
+    #### 1 вопрос
+    e_1 = embed.emb_2("Напиши свой никнейм в игре.")
+    await user.send(embed=e_1.emb)
+    await q_1(user, bot)
+
+async def question_2(user, bot, s, check):
+    sel = "s_2"
+    s.clear_items()
+    e_2 = embed.emb_2("В какое время относительно МСК ты играешь в основном?")
+    s.add_item(q_2())
+    await user.send(embed=e_2.emb, view = s)
+    await bot.wait_for('interaction', check=check, timeout=time_wait)
+    print("HUY")
