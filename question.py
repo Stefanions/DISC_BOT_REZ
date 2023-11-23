@@ -12,16 +12,15 @@ mem_data = {}
 #Время ожидания ответа
 time_wait = 120.0
 
-##############################################Селекты и не только + разные конструкции##############################################
-####### 1 вопрос #######
+### Селекты + обработчики его нажатия ###
+#1 вопрос
 async def q_1(user, bot):
     def check(message):
         return ((message.author.id == user.id) and (message.channel.id == user.dm_channel.id))
     mes = await bot.wait_for('message', check=check, timeout=time_wait)
     mem_data[user.id].nick = mes.content
 
-
-####### 2 вопрос #######
+#2 вопрос
 class q_2(Select):
     def __init__(self):
         super().__init__(
@@ -54,7 +53,7 @@ class q_2(Select):
         #-----------------------------#
         mem_data[interaction.user.id].main_time = rez_label
 
-####### 3 вопрос #######
+#3 вопрос
 class q_3(Select):
     def __init__(self): 
         super().__init__(
@@ -104,7 +103,7 @@ class q_3(Select):
         value = interaction.data['values'][0]
         mem_data[interaction.user.id].time_zone = value
 
-####### 4 вопрос #######
+#4 вопрос
 class q_4(Select):
     def __init__(self): 
         super().__init__(
@@ -131,7 +130,7 @@ class q_4(Select):
         #-----------------------------#
         mem_data[interaction.user.id].hours = label_value[value[0]]
 
-####### 5 вопрос #######
+#5 вопрос
 class q_5(Select):
     def __init__(self): 
         super().__init__(
@@ -159,7 +158,7 @@ class q_5(Select):
         #-----------------------------#
         mem_data[interaction.user.id].direction = label_value[value[0]]
 
-####### 6 вопрос #######
+#6 вопрос
 class q_6(Select):
     def __init__(self): 
         super().__init__(
@@ -192,7 +191,7 @@ class q_6(Select):
         #-----------------------------#
         mem_data[interaction.user.id].main_game_role = label_value[value[0]]
 
-####### 7 вопрос
+#7 вопрос
 class q_7(Select):
     def __init__(self): 
         super().__init__(
@@ -233,21 +232,21 @@ class q_7(Select):
 
         mem_data[interaction.user.id].game_role = rez_label
 
-####### 8 вопрос #######
+#8 вопрос
 async def q_8(user, bot):
     def check(message):
         return ((message.author.id == user.id) and (message.channel.id == user.dm_channel.id))
     mes = await bot.wait_for('message', check=check, timeout=time_wait)
     mem_data[user.id].answer_q8 = mes.content  
 
-####### 9 вопрос #######
+#9 вопрос
 async def q_9(user, bot):
     def check(message):
         return ((message.author.id == user.id) and (message.channel.id == user.dm_channel.id))
     mes = await bot.wait_for('message', check=check, timeout=time_wait)
     mem_data[user.id].age = mes.content 
 
-####### 10 вопрос
+#10 вопрос
 class q_10(Select):
     def __init__(self): 
         super().__init__(
@@ -271,7 +270,7 @@ class q_10(Select):
         value = interaction.data['values']
         mem_data[interaction.user.id].shooting_skill = value[0]
 
-####### 11 вопрос
+#11 вопрос
 class q_11(Select):
     def __init__(self): 
         super().__init__(
@@ -295,7 +294,7 @@ class q_11(Select):
         value = interaction.data['values']
         mem_data[interaction.user.id].discipline = value[0]
 
-####### 12 вопрос
+#12 вопрос
 class q_12(Select):
     def __init__(self): 
         super().__init__(
@@ -319,7 +318,7 @@ class q_12(Select):
         value = interaction.data['values']
         mem_data[interaction.user.id].radio_exchange = value[0]
 
-####### 13 вопрос
+#13 вопрос
 class q_13(Select):
     def __init__(self): 
         super().__init__(
@@ -334,8 +333,7 @@ class q_13(Select):
         value = interaction.data['values']
         mem_data[interaction.user.id].answer_q13 = value[0]
 
-
-####### 14 вопрос #######
+#14 вопрос
 async def q_14(user, bot):
     def check(message):
         return ((message.author.id == user.id) and (message.channel.id == user.dm_channel.id))
@@ -343,17 +341,108 @@ async def q_14(user, bot):
     mem_data[user.id].answer_q14 = mes.content 
 
 ### Функция вопросов ###
+#Вопрос 1
 async def question_1(user, bot):
-    #### 1 вопрос
     e_1 = embed.emb_2("Напиши свой никнейм в игре.")
     await user.send(embed=e_1.emb)
     await q_1(user, bot)
 
+#Вопрос 2
 async def question_2(user, bot, s, check):
-    sel = "s_2"
     s.clear_items()
     e_2 = embed.emb_2("В какое время относительно МСК ты играешь в основном?")
     s.add_item(q_2())
     await user.send(embed=e_2.emb, view = s)
     await bot.wait_for('interaction', check=check, timeout=time_wait)
-    print("HUY")
+
+#Вопрос 3
+async def question_3(user, bot, s, check):
+    s.clear_items()
+    s.add_item(q_3())
+    e_3 = embed.emb_2("Какой у тебя часовой пояс?")
+    await user.send(embed=e_3.emb, view = s)
+    await bot.wait_for('interaction', check=check, timeout=time_wait)
+
+#Вопрос 4
+async def question_4(user, bot, s, check):
+    s.clear_items()
+    s.add_item(q_4())
+    e_4 = embed.emb_2("Сколько у тебя часов в SQUAD?")
+    await user.send(embed=e_4.emb, view = s)
+    await bot.wait_for('interaction', check=check, timeout=time_wait)
+
+#Вопрос 5
+async def question_5(user, bot, s, check):
+    s.clear_items()
+    s.add_item(q_5())
+    e_5 = embed.emb_2("Какое направление тебе нравится больше всего?")
+    await user.send(embed=e_5.emb, view = s)
+    await bot.wait_for('interaction', check=check, timeout=time_wait)
+
+#Вопрос 6
+async def question_6(user, bot, s, check):
+    s.clear_items()
+    s.add_item(q_6())
+    e_6 = embed.emb_2("Выбери одну роль (стрелковую специальность), номер один для тебя?")
+    await user.send(embed=e_6.emb, view = s)
+    await bot.wait_for('interaction', check=check, timeout=time_wait)
+
+#Вопрос 7
+async def question_7(user, bot, s, check):
+    s.clear_items()
+    s.add_item(q_7())
+    e_7 = embed.emb_2("Выбери дополнительные 2 или более роли, помимо основной. Напиши их ниже.")
+    await user.send(embed=e_7.emb, view = s)
+    await bot.wait_for('interaction', check=check, timeout=time_wait)
+
+#Вопрос 8
+async def question_8(user, bot, s, check):
+    s.clear_items()
+    e_8 = embed.emb_2("Ты понимаешь, что для того, что бы играть командно, нужно, что бы все делали одинаково?\nЭто \"одинаково\" - мы научим тебя делать, но не все может получатся сразу")
+    await user.send(embed=e_8.emb)
+    await q_8(user, bot)
+
+#Вопрос 9
+async def question_9(user, bot):
+    e_9 = embed.emb_2("Сколько тебе лет?")
+    await user.send(embed=e_9.emb)
+    await q_9(user, bot)
+
+#Вопрос 10
+async def question_10(user, bot, s, check):
+    s.clear_items()
+    e_10 = embed.emb_2("Оцени самостоятельно навык твоей стрельбы в SQUAD? от 0 до 10")
+    s.add_item(q_10())
+    await user.send(embed=e_10.emb, view = s)
+    await bot.wait_for('interaction', check=check, timeout=time_wait)
+
+#Вопрос 11
+async def question_11(user, bot, s, check):
+    s.clear_items()
+    e_11 = embed.emb_2("Насколько ты считаешь себя дисциплинированным игроком, если играешь в отряде? От 0 до 10")
+    s.add_item(q_11())
+    await user.send(embed=e_11.emb, view = s)
+    await bot.wait_for('interaction', check=check, timeout=time_wait)
+
+#Вопрос 12
+async def question_12(user, bot, s, check):
+    s.clear_items()
+    e_12 = embed.emb_2("Как ты считаешь, насколько ты хорош при радиообмене от 0 до 10?")
+    s.add_item(q_12())
+    await user.send(embed=e_12.emb, view = s)
+    await bot.wait_for('interaction', check=check, timeout=time_wait)
+
+#Вопрос 13
+async def question_13(user, bot, s, check):
+    s.clear_items()
+    e_13 = embed.emb_2("Ты хочешь играть серьезные игры в SQUAD? (Считай что это киберспорт, но только в скваде)")
+    s.add_item(q_13())
+    await user.send(embed=e_13.emb, view = s)
+    await bot.wait_for('interaction', check=check, timeout=time_wait)
+
+#Вопрос 14
+async def question_14(user, bot, s):
+    s.clear_items()
+    e_14 = embed.emb_2("Откуда вы о нас узнали?\nЕсли вас пригласили, обязательно напишите ник человека, кто это сделал (Хотя бы примерный, мы поймем xD)")
+    await user.send(embed=e_14.emb)
+    await q_14(user, bot)

@@ -145,113 +145,60 @@ async def Intro_LS(user):
         #Приветственное сообщение
         await user.send(embed=embed.emb_1)
         
-        # #### 1 вопрос
-        # e_1 = embed.emb_2("Напиши свой никнейм в игре.")
-        # await user.send(embed=e_1.emb)
-        # await question.q_1(user, bot)
+        #### 1 вопрос
         await question.question_1(user, bot)
 
-        # ### 2 вопрос rdy 
-        # sel = "s_2"
-        # s.clear_items()
-        # e_2 = embed.emb_2("В какое время относительно МСК ты играешь в основном?")
-        # s.add_item(question.q_2())
-        # await user.send(embed=e_2.emb, view = s)
-        # await bot.wait_for('interaction', check=check, timeout=time_wait)
+        #### 2 вопрос
+        sel = "s_2"
         await question.question_2(user, bot, s, check)
 
-        #### 3 вопрос rdy
+        #### 3 вопрос
         sel = "s_3"
-        s.clear_items()
-        s.add_item(question.q_3())
-        e_3 = embed.emb_2("Какой у тебя часовой пояс?")
-        await user.send(embed=e_3.emb, view = s)
-        await bot.wait_for('interaction', check=check, timeout=time_wait)
+        await question.question_3(user, bot, s, check)
 
-        #### 4 вопрос rdy
+        #### 4 вопрос
         sel = "s_4"
-        s.clear_items()
-        s.add_item(question.q_4())
-        e_4 = embed.emb_2("Сколько у тебя часов в SQUAD?")
-        await user.send(embed=e_4.emb, view = s)
-        await bot.wait_for('interaction', check=check, timeout=time_wait)
+        await question.question_4(user, bot, s, check)
 
-        #### 5 вопрос rdy
+        #### 5 вопрос
         sel = "s_5"
-        s.clear_items()
-        s.add_item(question.q_5())
-        e_5 = embed.emb_2("Какое направление тебе нравится больше всего?")
-        await user.send(embed=e_5.emb, view = s)
-        await bot.wait_for('interaction', check=check, timeout=time_wait)
+        await question.question_5(user, bot, s, check)
 
-        #### 6 вопрос rdy
+        #### 6 вопрос
         sel = "s_6"
-        s.clear_items()
-        s.add_item(question.q_6())
-        e_6 = embed.emb_2("Выбери одну роль (стрелковую специальность), номер один для тебя?")
-        await user.send(embed=e_6.emb, view = s)
-        await bot.wait_for('interaction', check=check, timeout=time_wait)
+        await question.question_6(user, bot, s, check)
 
-        #### 7 вопрос rdy
+        #### 7 вопрос
         sel = "s_7"
-        s.clear_items()
-        s.add_item(question.q_7())
-        e_7 = embed.emb_2("Выбери дополнительные 2 или более роли, помимо основной. Напиши их ниже.")
-        await user.send(embed=e_7.emb, view = s)
-        await bot.wait_for('interaction', check=check, timeout=time_wait)
+        await question.question_7(user, bot, s, check)
         
         #### 8 вопрос
         sel = "s_8"
-        s.clear_items()
-        e_8 = embed.emb_2("Ты понимаешь, что для того, что бы играть командно, нужно, что бы все делали одинаково?\nЭто \"одинаково\" - мы научим тебя делать, но не все может получатся сразу")
-        await user.send(embed=e_8.emb)
-        await question.q_8(user, bot)
+        await question.question_8(user, bot, s, check)
 
         #### 9 вопрос   
         sel = "s_9" 
-        s.clear_items()
-        e_9 = embed.emb_2("Сколько тебе лет?")
-        await user.send(embed=e_9.emb)
-        await question.q_9(user, bot)
+        await question.question_9(user, bot)
 
-        #### 10 вопрос rdy
+        #### 10 вопрос
         sel = "s_10"
-        s.clear_items()
-        e_10 = embed.emb_2("Оцени самостоятельно навык твоей стрельбы в SQUAD? от 0 до 10")
-        s.add_item(question.q_10())
-        await user.send(embed=e_10.emb, view = s)
-        await bot.wait_for('interaction', check=check, timeout=time_wait)
+        await question.question_10(user, bot, s, check)
 
-        #### 11 вопрос rdy
+        #### 11 вопрос
         sel = "s_11"
-        s.clear_items()
-        e_11 = embed.emb_2("Насколько ты считаешь себя дисциплинированным игроком, если играешь в отряде? От 0 до 10")
-        s.add_item(question.q_11())
-        await user.send(embed=e_11.emb, view = s)
-        await bot.wait_for('interaction', check=check, timeout=time_wait)
+        await question.question_11(user, bot, s, check)
 
-        #### 12 вопрос rdy
+        #### 12 вопрос
         sel = "s_12"
-        s.clear_items()
-        e_12 = embed.emb_2("Как ты считаешь, насколько ты хорош при радиообмене от 0 до 10?")
-        s.add_item(question.q_12())
-        await user.send(embed=e_12.emb, view = s)
-        await bot.wait_for('interaction', check=check, timeout=time_wait)
+        await question.question_12(user, bot, s, check)
 
         #### 13 вопрос rdy
         sel = "s_13"
-        s.clear_items()
-        e_13 = embed.emb_2("Ты хочешь играть серьезные игры в SQUAD? (Считай что это киберспорт, но только в скваде)")
-        s.add_item(question.q_13())
-        await user.send(embed=e_13.emb, view = s)
-        await bot.wait_for('interaction', check=check, timeout=time_wait)
+        await question.question_13(user, bot, s, check)
 
         #### 14 вопрос
         sel = "s_14"
-        s.clear_items()
-        e_14 = embed.emb_2("Откуда вы о нас узнали?\nЕсли вас пригласили, обязательно напишите ник человека, кто это сделал (Хотя бы примерный, мы поймем xD)")
-        await user.send(embed=e_14.emb)
-        await question.q_14(user, bot)
+        await question.question_14(user, bot, s)
 
 
         #Результирующая кнопка 
